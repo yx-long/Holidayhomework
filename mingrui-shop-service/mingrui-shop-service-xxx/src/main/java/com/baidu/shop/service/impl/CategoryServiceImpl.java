@@ -2,9 +2,11 @@ package com.baidu.shop.service.impl;
 
 import com.baidu.shop.base.BaseApiService;
 import com.baidu.shop.base.Result;
+import com.baidu.shop.dto.CategoryDTO;
 import com.baidu.shop.entity.CategoryEntity;
 import com.baidu.shop.mapper.CategoryMapper;
 import com.baidu.shop.service.CategoryService;
+import com.baidu.shop.utils.BaiduBeanUtil;
 import com.baidu.shop.utils.JSONUtil;
 import com.baidu.shop.utils.ObjectUtil;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +18,15 @@ import java.util.List;
 
 @RestController
 public class CategoryServiceImpl extends BaseApiService implements CategoryService {
+
     @Resource
     private CategoryMapper categoryMapper;
 
     @Transactional
     @Override
-    public Result<JSONUtil> categoryEdit (CategoryEntity categoryEntity) {
+    public Result<JSONUtil> categoryEdit (CategoryDTO categoryDTO) {
         try {
+            CategoryEntity categoryEntity = BaiduBeanUtil.copyProperties(categoryDTO, CategoryEntity.class);
             categoryMapper.updateByPrimaryKeySelective(categoryEntity);
         } catch (Exception e) {
             e.printStackTrace();
@@ -32,12 +36,12 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
 
     @Transactional
     @Override
-    public Result<JSONUtil> categorySave (CategoryEntity entity) {
-        CategoryEntity categoryEntity1 = new CategoryEntity();
-        categoryEntity1.setId(entity.getParentId());
-        categoryEntity1.setIsParent(1);
-        categoryMapper.updateByPrimaryKeySelective(categoryEntity1);
-        categoryMapper.insertSelective(entity);
+    public Result<JSONUtil> categorySave (CategoryDTO categoryDTO) {
+        CategoryEntity categoryEntity = BaiduBeanUtil.copyProperties(categoryDTO, CategoryEntity.class);
+        categoryEntity.setId(categoryDTO.getParentId());
+        categoryEntity.setIsParent(1);
+        categoryMapper.updateByPrimaryKeySelective(categoryEntity);
+        categoryMapper.insertSelective(categoryEntity);
         return this.setResultSuccess();
     }
 
@@ -77,4 +81,5 @@ public class CategoryServiceImpl extends BaseApiService implements CategoryServi
         List<CategoryEntity> list = categoryMapper.select(categoryEntity);
         return this.setResultSuccess(list);
     }
+
 }
