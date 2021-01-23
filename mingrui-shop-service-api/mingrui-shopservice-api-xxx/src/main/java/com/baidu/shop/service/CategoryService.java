@@ -1,17 +1,16 @@
 package com.baidu.shop.service;
 
-import com.alibaba.fastjson.JSON;
 import com.baidu.shop.base.Result;
 import com.baidu.shop.dto.CategoryDTO;
 import com.baidu.shop.entity.CategoryEntity;
 import com.baidu.shop.utils.JSONUtil;
-import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@ApiModel(value = "商品分类接口")
+@Api(tags = "分类接口")
 public interface CategoryService {
 
     @ApiOperation(value = "通过pid查询商品分类")
