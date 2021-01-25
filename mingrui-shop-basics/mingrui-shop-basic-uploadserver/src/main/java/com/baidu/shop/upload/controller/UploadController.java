@@ -11,10 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-@RestController
-@RequestMapping(value = "upload")
+/*@RestController
+@RequestMapping(value = "upload")*/
 public class UploadController extends BaseApiService {
-    //linux系统的上传目录
+    /*//linux系统的上传目录
     @Value(value = "${mingrui.upload.path.windows}")
     private String windowsPath;
     //window系统的上传目录
@@ -44,5 +44,5 @@ public class UploadController extends BaseApiService {
         }
         //将文件名返回页面用于页面回显
         return this.setResult(HTTPStatus.OK, "upload success!!!", imgHost + "/" + filename);
-    }
+    }*/
 }
