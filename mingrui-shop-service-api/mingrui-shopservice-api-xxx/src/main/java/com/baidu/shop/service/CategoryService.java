@@ -29,4 +29,8 @@ public interface CategoryService {
     @PostMapping(value = "category/save")
     Result<JSONUtil> categorySave(@RequestBody CategoryDTO categoryDTO);
 
+    @GetMapping(value = "category/brand")
+    @ApiOperation(value = "通过品牌id查询商品分类")
+    Result<List<CategoryEntity>> getByBrand (Integer brandId);
+
 }
